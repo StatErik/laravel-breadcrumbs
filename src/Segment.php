@@ -175,15 +175,11 @@ class Segment
      */
     public function label()
     {
-        if (!$this->model()) {
-            return $this->segmentTitleCase();
-        }
-
-        if ($this->labelClassExists()) {
+        if(is_object($this->model)) {
             return $this->labelInstance()->label();
         }
 
-        return $this->resolveLabel();
+        return $this->model() ? $this->model()->title ?? $this->segmentTitleCase() : $this->segmentTitleCase();
     }
 
     /**
